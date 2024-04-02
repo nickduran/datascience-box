@@ -5,8 +5,8 @@
     <meta charset="utf-8" />
     <meta name="author" content="datasciencebox.org" />
     <script src="libs/header-attrs/header-attrs.js"></script>
-    <link href="libs/font-awesome/css/all.css" rel="stylesheet" />
-    <link href="libs/font-awesome/css/v4-shims.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="libs/font-awesome/css/v4-shims.min.css" rel="stylesheet" />
     <link href="libs/panelset/panelset.css" rel="stylesheet" />
     <script src="libs/panelset/panelset.js"></script>
     <link rel="stylesheet" href="../xaringan-themer.css" type="text/css" />
@@ -73,7 +73,7 @@ office_ratings
 ## 4      1       4 The Alliance          8.1        2886 2005-04-12
 ## 5      1       5 Basketball            8.4        3179 2005-04-19
 ## 6      1       6 Hot Girl              7.8        2852 2005-04-26
-## # … with 182 more rows
+## # ℹ 182 more rows
 ```
 
 .footnote[
@@ -301,24 +301,6 @@ office_rec &lt;- recipe(imdb_rating ~ ., data = office_train) %&gt;%
 ```r
 office_rec
 ```
-
-```
-## Recipe
-## 
-## Inputs:
-## 
-##       role #variables
-##         ID          1
-##    outcome          1
-##  predictor          4
-## 
-## Operations:
-## 
-## Date features from air_date
-## Variables removed air_date
-## Dummy variables from contains("month")
-## Zero variance filter on all_predictors()
-```
 ]
 ]
 ]
@@ -434,7 +416,7 @@ office_train_pred
 ## 4  7.94         6.7 Get the Girl     
 ## 5  7.92         7.9 Tallahassee      
 ## 6  8.29         7.7 The Inner Circle 
-## # … with 135 more rows
+## # ℹ 135 more rows
 ```
 
 ---
@@ -556,7 +538,7 @@ office_test_pred
 ## 4  8.71         9   The Injury     
 ## 5  8.50         8.2 Boys and Girls 
 ## 6  8.46         8.4 Dwight's Speech
-## # … with 41 more rows
+## # ℹ 41 more rows
 ```
 
 ---
@@ -597,30 +579,11 @@ rsq(office_test_pred, truth = imdb_rating, estimate = .pred)
 
 &lt;br&gt;
 
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; metric &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; train &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; test &lt;/th&gt;
-   &lt;th style="text-align:left;"&gt; comparison &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; RMSE &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.373 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.386 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; RMSE lower for training &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; R-squared &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.500 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.556 &lt;/td&gt;
-   &lt;td style="text-align:left;"&gt; R-squared higher for training &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+
+|metric    | train|  test|comparison                    |
+|:---------|-----:|-----:|:-----------------------------|
+|RMSE      | 0.373| 0.386|RMSE lower for training       |
+|R-squared | 0.500| 0.556|R-squared higher for training |
 
 ---
 
@@ -775,42 +738,14 @@ collect_metrics(office_fit_rs, summarize = FALSE) %&gt;%
 ```
 ]
 .panel[.panel-name[Tidy]
-&lt;table&gt;
- &lt;thead&gt;
-  &lt;tr&gt;
-   &lt;th style="text-align:left;"&gt; Fold &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; RMSE &lt;/th&gt;
-   &lt;th style="text-align:right;"&gt; R-squared &lt;/th&gt;
-  &lt;/tr&gt;
- &lt;/thead&gt;
-&lt;tbody&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Fold1 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.430 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.134 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Fold2 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.368 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.496 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Fold3 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.452 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.501 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Fold4 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.289 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.529 &lt;/td&gt;
-  &lt;/tr&gt;
-  &lt;tr&gt;
-   &lt;td style="text-align:left;"&gt; Fold5 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.475 &lt;/td&gt;
-   &lt;td style="text-align:right;"&gt; 0.403 &lt;/td&gt;
-  &lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+
+|Fold  |  RMSE| R-squared|
+|:-----|-----:|---------:|
+|Fold1 | 0.430|     0.134|
+|Fold2 | 0.368|     0.496|
+|Fold3 | 0.452|     0.501|
+|Fold4 | 0.289|     0.529|
+|Fold5 | 0.475|     0.403|
 ]
 ]
 
